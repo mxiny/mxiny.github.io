@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://mxiny.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-01-09T05:33:34.848Z</updated>
+    <id>https://mxiny.com</id>
+    <title>Mxiny</title>
+    <updated>2020-01-09T07:31:58.967Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://mxiny.github.io"/>
-    <link rel="self" href="https://mxiny.github.io/atom.xml"/>
+    <link rel="alternate" href="https://mxiny.com"/>
+    <link rel="self" href="https://mxiny.com/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://mxiny.github.io/images/avatar.png</logo>
-    <icon>https://mxiny.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <logo>https://mxiny.com/images/avatar.png</logo>
+    <icon>https://mxiny.com/favicon.ico</icon>
+    <rights>All rights reserved 2020, Mxiny</rights>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://mxiny.com/post/about</id>
+        <link href="https://mxiny.com/post/about">
+        </link>
+        <updated>2019-01-22T19:09:48.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+</blockquote>
+<h2 id="关于本站">🏠 关于本站</h2>
+<p>这就是一个很可爱的地方，你问我它是什么，我也想问你它是什么。</p>
+<h2 id="博主是谁">👨‍💻 博主是谁</h2>
+<p>肥宅？健身？码农？音韵？书画？研究？我是你们，你们也是我。</p>
+<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
+<p>兴趣爱好这样式，太广泛了不算，太粗浅了不谈，太隐秘了不耻。</p>
+<h2 id="联系我呀">📬 联系我呀</h2>
+<p>如果我记得留下联系方式的话：</p>
+<figure data-type="image" tabindex="1"><img src="https://mxiny.com/post-images/1578554169546.jpg" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://mxiny.github.io/post/hello-gridea</id>
-        <link href="https://mxiny.github.io/post/hello-gridea">
+        <id>https://mxiny.com/post/hello-gridea</id>
+        <link href="https://mxiny.com/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
