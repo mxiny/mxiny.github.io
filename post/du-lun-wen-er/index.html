@@ -34,7 +34,19 @@
             文章目录
           </p>
           <div class="toc-container hidden lg:block">
-            
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#title">Title</a></li>
+<li><a href="#problem">Problem</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#method">Method</a></li>
+<li><a href="#experiment">Experiment</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
           </div>
         </div>
       
@@ -79,40 +91,122 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">你好</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">读论文二</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-01-07 / 1 min read
+          2020-03-04 / 4 min read
         </div>
         
         <div class="post-content yue">
-          <p>人生不如意之事十有八九，认清这一点才能够保持生命的乐观。在不如意之时也不必惶惶度日寻欢，只是抬头看，沉心思，径直走。</p>
+          <h2 id="title">Title</h2>
+<p>2019 JMLR Decoupling sparsity and smoothness in the dirichlet variational autoencoder topic model</p>
+<h2 id="problem">Problem</h2>
+<ul>
+<li>
+<p><strong>There is a trade-off between sparsity and smoothness in Dirichlet distributions.</strong></p>
+<ul>
+<li>The Dirichlet distribution encourages the sparsity in the latent variables. However, authors find that the desired sparsity is at odds with the generalization performance of the model.</li>
+<li>In the case of variational autoencoders (VAEs), the trade off is that:
+<ul>
+<li>Either the model is sparse and achieves a good reconstruction error, but has a high KL-divergence term and thus a low log-likelihood of the model</li>
+<li>Or it avoids low settings of the prior and thereby achieves a better log-likelihood at the cost of a higher reconstruction error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>There is no differentiable non-centered reparameterization function for the Dirichlet distribution.</p>
+</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>To identify the trade-off between sparsity and smoothness and provide an adapted neural network architecture to decouple them.</p>
+<h2 id="method">Method</h2>
+<ul>
+<li>横向比较</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1583626929639.png" alt="" loading="lazy"></figure>
+<p>a 为Dirichlet分布的参数，b为稀疏性系数。DVAE和DVAE Sparse的区别在于前者的b为1。</p>
+<ul>
+<li>
+<p>内部探究</p>
+<ul>
+<li>模型结构</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://mxiny.github.io/post-images/1583626938494.png" alt="" loading="lazy"></figure>
+<p>​				 这里引入batchnorm的原因是为了改善 Component Collapsing 问题。</p>
+<ul>
+<li>
+<p>ELBO和梯度的推导，详看论文。</p>
+</li>
+<li>
+<p>VAE中的 Component Collapsing 问题。</p>
+<ul>
+<li>
+<p>What?</p>
+<p>This is the problem of a local minimum, which leads to parameters that are equal to the prior and thus, many or all topics are the same. <strong>Topic redundancy</strong></p>
+</li>
+<li>
+<p>Why?</p>
+<p>It occurs because it is often easier for the model to minimize the KL-divergence than to minimize the reconstruction error.</p>
+</li>
+<li>
+<p>How to deal with it?</p>
+<ul>
+<li>use much lower learning rates (NVDM)</li>
+<li>annealing of the KL-divergence (Bowman et al., 2016)</li>
+<li>batch normalization and dropout (Srivastava and Sutton, 2017, 2018)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="experiment">Experiment</h2>
+<ul>
+<li>除了 perplexity 和 NPMI（coherence）以外，还引入了 topic redundancy（越低越好）：</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://mxiny.github.io/post-images/1583626864052.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>DVAE，coherence最高，但perplexity却非常高， topic redundancy一般。</p>
+</li>
+<li>
+<p>DVAE Sparse，coherence一般，但是perplexity与DVAE和其他基于近似Dirichlet分布的方法相比较低，且topic redundancy低。</p>
+</li>
+<li>
+<p>分析：</p>
+<ul>
+<li>以Dirichlet分布为先验的模型在coherence上都好于以高斯分布为先验的模型（NVDM）。This further underlines the argument by Srivastava and Sutton (2017) that the sparsity induced by the Dirichlet indeed leads to higher topic coherence.</li>
+<li>DVAE的perplexity却非常高是因为 KL-divergence 收敛到 0，则可以通过引入稀疏性系数，即DVAE Sparse来缓解。这表明了the coupling of sparsity and smoothness is responsible for the high perplexity scores. Also perplexity scores are not always meaningful when comparing different topic models.</li>
+<li>计算KL散度有解析式计算、采样计算两种方法。后者有利于增加coherence。</li>
+</ul>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>Authors have introduced a variational autoencoder with a Dirichlet prior called DVAE.</li>
+<li>A trade-off between sparsity and smoothness was identified, leading to high perplexity as well as topic coherence scores.</li>
+<li>To test our hypothesis about the reason for the high perplexity scores, a new model called DVAE Sparse was introduced. DVAE Sparse decouples sparsity and smoothness and thus enables lower perplexity scores on the one hand while on the other hand the topic coherence is still competitive.</li>
+<li>The topic quality was also measured in terms of topic redundancy which is a good indicator for component collapsing as opposed to topic coherence.</li>
+</ul>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://mxiny.github.io/tag/dHzyIM5qW">
-            <span class="flex-auto">日常</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://mxiny.github.io/tag/racTE-Nv7">
+            <span class="flex-auto">论文</span>
           </a>
         
 
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://mxiny.github.io/post/lun-wen-yan-du">
-                <h3 class="post-title">
-                  <i class="remixicon-arrow-left-line"></i>
-                  读论文一
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://mxiny.github.io/post/about">
+              <a href="https://mxiny.github.io/post/lun-wen-yan-du">
                 <h3 class="post-title">
-                  关于
+                  读论文一
                   <i class="remixicon-arrow-right-line"></i>
                 </h3>
               </a>

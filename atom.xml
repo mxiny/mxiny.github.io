@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mxiny.github.io</id>
     <title>Mxiny</title>
-    <updated>2020-03-07T20:31:29.762Z</updated>
+    <updated>2020-03-08T00:31:08.893Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mxiny.github.io"/>
     <link rel="self" href="https://mxiny.github.io/atom.xml"/>
@@ -11,11 +11,111 @@
     <icon>https://mxiny.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Mxiny</rights>
     <entry>
+        <title type="html"><![CDATA[读论文二]]></title>
+        <id>https://mxiny.github.io/post/du-lun-wen-er</id>
+        <link href="https://mxiny.github.io/post/du-lun-wen-er">
+        </link>
+        <updated>2020-03-04T16:17:28.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="title">Title</h2>
+<p>2019 JMLR Decoupling sparsity and smoothness in the dirichlet variational autoencoder topic model</p>
+<h2 id="problem">Problem</h2>
+<ul>
+<li>
+<p><strong>There is a trade-off between sparsity and smoothness in Dirichlet distributions.</strong></p>
+<ul>
+<li>The Dirichlet distribution encourages the sparsity in the latent variables. However, authors find that the desired sparsity is at odds with the generalization performance of the model.</li>
+<li>In the case of variational autoencoders (VAEs), the trade off is that:
+<ul>
+<li>Either the model is sparse and achieves a good reconstruction error, but has a high KL-divergence term and thus a low log-likelihood of the model</li>
+<li>Or it avoids low settings of the prior and thereby achieves a better log-likelihood at the cost of a higher reconstruction error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>There is no differentiable non-centered reparameterization function for the Dirichlet distribution.</p>
+</li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>To identify the trade-off between sparsity and smoothness and provide an adapted neural network architecture to decouple them.</p>
+<h2 id="method">Method</h2>
+<ul>
+<li>横向比较</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1583626929639.png" alt="" loading="lazy"></figure>
+<p>a 为Dirichlet分布的参数，b为稀疏性系数。DVAE和DVAE Sparse的区别在于前者的b为1。</p>
+<ul>
+<li>
+<p>内部探究</p>
+<ul>
+<li>模型结构</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://mxiny.github.io/post-images/1583626938494.png" alt="" loading="lazy"></figure>
+<p>​				 这里引入batchnorm的原因是为了改善 Component Collapsing 问题。</p>
+<ul>
+<li>
+<p>ELBO和梯度的推导，详看论文。</p>
+</li>
+<li>
+<p>VAE中的 Component Collapsing 问题。</p>
+<ul>
+<li>
+<p>What?</p>
+<p>This is the problem of a local minimum, which leads to parameters that are equal to the prior and thus, many or all topics are the same. <strong>Topic redundancy</strong></p>
+</li>
+<li>
+<p>Why?</p>
+<p>It occurs because it is often easier for the model to minimize the KL-divergence than to minimize the reconstruction error.</p>
+</li>
+<li>
+<p>How to deal with it?</p>
+<ul>
+<li>use much lower learning rates (NVDM)</li>
+<li>annealing of the KL-divergence (Bowman et al., 2016)</li>
+<li>batch normalization and dropout (Srivastava and Sutton, 2017, 2018)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="experiment">Experiment</h2>
+<ul>
+<li>除了 perplexity 和 NPMI（coherence）以外，还引入了 topic redundancy（越低越好）：</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://mxiny.github.io/post-images/1583626864052.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>DVAE，coherence最高，但perplexity却非常高， topic redundancy一般。</p>
+</li>
+<li>
+<p>DVAE Sparse，coherence一般，但是perplexity与DVAE和其他基于近似Dirichlet分布的方法相比较低，且topic redundancy低。</p>
+</li>
+<li>
+<p>分析：</p>
+<ul>
+<li>以Dirichlet分布为先验的模型在coherence上都好于以高斯分布为先验的模型（NVDM）。This further underlines the argument by Srivastava and Sutton (2017) that the sparsity induced by the Dirichlet indeed leads to higher topic coherence.</li>
+<li>DVAE的perplexity却非常高是因为 KL-divergence 收敛到 0，则可以通过引入稀疏性系数，即DVAE Sparse来缓解。这表明了the coupling of sparsity and smoothness is responsible for the high perplexity scores. Also perplexity scores are not always meaningful when comparing different topic models.</li>
+<li>计算KL散度有解析式计算、采样计算两种方法。后者有利于增加coherence。</li>
+</ul>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>Authors have introduced a variational autoencoder with a Dirichlet prior called DVAE.</li>
+<li>A trade-off between sparsity and smoothness was identified, leading to high perplexity as well as topic coherence scores.</li>
+<li>To test our hypothesis about the reason for the high perplexity scores, a new model called DVAE Sparse was introduced. DVAE Sparse decouples sparsity and smoothness and thus enables lower perplexity scores on the one hand while on the other hand the topic coherence is still competitive.</li>
+<li>The topic quality was also measured in terms of topic redundancy which is a good indicator for component collapsing as opposed to topic coherence.</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[读论文一]]></title>
         <id>https://mxiny.github.io/post/lun-wen-yan-du</id>
         <link href="https://mxiny.github.io/post/lun-wen-yan-du">
         </link>
-        <updated>2020-03-05T04:01:12.000Z</updated>
+        <updated>2020-03-02T12:01:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
 <p>2019 ICLR Variational autoencoders with jointly optimized latent dependency structure</p>
 <h2 id="problem">Problem</h2>
@@ -38,9 +138,9 @@
 <h2 id="method">Method</h2>
 <p>In this work, authors propose a method for learning dependency structures in latent variable models. In particular, authors introduce a set of binary global variables to gate the latent dependencies. The whole model (including its structure) is jointly optimized with a single stochastic variational inference objective.</p>
 <ul>
-<li>
-<p>横向比较</p>
-<figure data-type="image" tabindex="1"><img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307102159112.png" alt="image-20200307102159112" loading="lazy"></figure>
+<li>横向比较</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1583613447706.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>VAE中，各个隐变量之间满足平均场假设。</p>
@@ -51,11 +151,11 @@
 <li>
 <p>Graph VAE中，隐变量的组织形式更为灵活。但是各隐变量也只是依赖于之前产生的隐变量，而不包括之后的。</p>
 </li>
-</ul>
-</li>
 <li>
 <p>内部探究</p>
-<figure data-type="image" tabindex="2"><img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307102213245.png" alt="image-20200307102213245" loading="lazy"></figure>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://mxiny.github.io/post-images/1583613458543.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>在图中节点数量有限的情况下，图结构的所有可能性是可数的，所有的可能性都是全连接图的子图。因此可以通过引入一个{0， 1}的<strong>指示变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></strong> 表示节点i和j之间是否有依赖关系。</p>
@@ -83,34 +183,32 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
 </li>
 <li>
 <p>最后利用一个<strong>precision-weighted fusion</strong>将两个分布联合起来得到最后的隐变量分布：</p>
-<figure data-type="image" tabindex="3"><img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307113657834.png" alt="image-20200307113657834" loading="lazy"></figure>
-<img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307113624097.png" alt="image-20200307113624097" style="zoom:50%;" />
 </li>
-<li>
-<p>还有一个问题是<strong>如何确定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 的取值</strong>。因为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 是离散的，因此需要用一些技巧使得能够对它求导。这里作者用的是 Gumbel-Softmax estimator from Jang et al. (2017)：</p>
-</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://mxiny.github.io/post-images/1583613472508.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://mxiny.github.io/post-images/1583613487990.png" alt="" loading="lazy"></figure>
+<ul>
+<li>还有一个问题是<strong>如何确定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 的取值</strong>。因为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 是离散的，因此需要用一些技巧使得能够对它求导。这里作者用的是 Gumbel-Softmax estimator from Jang et al. (2017)：</li>
 </ul>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mrow><mo fence="true">(</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><msub><mi>μ</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo fence="true">)</mo></mrow><mo>+</mo><msub><mi>ϵ</mi><mn>1</mn></msub><mo fence="true">)</mo></mrow><mi mathvariant="normal">/</mi><mi>τ</mi><mo fence="true">)</mo></mrow></mrow><mrow><mi>exp</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mrow><mo fence="true">(</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><msub><mi>μ</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo fence="true">)</mo></mrow><mo>+</mo><msub><mi>ϵ</mi><mn>1</mn></msub><mo fence="true">)</mo></mrow><mi mathvariant="normal">/</mi><mi>τ</mi><mo fence="true">)</mo></mrow><mo>+</mo><mi>exp</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mrow><mo fence="true">(</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><msub><mi>μ</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo fence="true">)</mo></mrow><mo>+</mo><msub><mi>ϵ</mi><mn>2</mn></msub><mo fence="true">)</mo></mrow><mi mathvariant="normal">/</mi><mi>τ</mi><mo fence="true">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">  
   c_{i, j}=\frac{\exp \left(\left(\log \left(\mu_{i, j}\right)+\epsilon_{1}\right) / \tau\right)}{\exp \left(\left(\log \left(\mu_{i, j}\right)+\epsilon_{1}\right) / \tau\right)+\exp \left(\left(\log \left(1-\mu_{i, j}\right)+\epsilon_{2}\right) / \tau\right)}
   
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.399108em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <p>这里实际上将离散变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 转换为了连续变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>， 使得可以求解梯度。在优化的过程中，使用了退火算法的思想，当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span> 大时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 较为平滑，当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span> 小时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 趋于离散。通过调节 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span></span></span></span> ，我们学习 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mu_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 的值。</p>
-</li>
-</ul>
 <h2 id="experiment">Experiment</h2>
 <ul>
-<li>
-<p>Analysis on latant variables' structure and node dimensions</p>
-<figure data-type="image" tabindex="4"><img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307120802565.png" alt="image-20200307120802565" loading="lazy"></figure>
-</li>
-<li>
-<p>Quantitative Comparations</p>
-<figure data-type="image" tabindex="5"><img src="file://C:/Users/hoooz/AppData/Roaming/Typora/typora-user-images/image-20200307120451511.png" alt="image-20200307120451511" loading="lazy"></figure>
-</li>
+<li>Analysis on latant variables' structure and node dimensions</li>
 </ul>
+<figure data-type="image" tabindex="5"><img src="https://mxiny.github.io/post-images/1583613509585.png" alt="" loading="lazy"></figure>
+<ul>
+<li>Quantitative Comparations</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://mxiny.github.io/post-images/1583613513997.png" alt="" loading="lazy"></figure>
 <h2 id="conclusion">Conclusion</h2>
 <p>Authors presented a novel method for structure learning in latent variable models, which uses dependency gating variables, together with a modified objective and discrete differentiation techniques, to effectively transform discrete structure learning into a continuous optimization problem.</p>
 <p>In our experiments, <strong>the learned latent dependency structures improve the performance</strong> of latent variable models over comparable baselines with predefined dependency structures.</p>
+<h2 id="code">Code</h2>
+<p>https://github.com/ys1998/vae-latent-structure</p>
 ]]></content>
     </entry>
     <entry>
@@ -118,8 +216,28 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
         <id>https://mxiny.github.io/post/ni-hao</id>
         <link href="https://mxiny.github.io/post/ni-hao">
         </link>
-        <updated>2020-01-08T15:55:30.000Z</updated>
+        <updated>2020-01-07T23:55:30.000Z</updated>
         <content type="html"><![CDATA[<p>人生不如意之事十有八九，认清这一点才能够保持生命的乐观。在不如意之时也不必惶惶度日寻欢，只是抬头看，沉心思，径直走。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://mxiny.github.io/post/about</id>
+        <link href="https://mxiny.github.io/post/about">
+        </link>
+        <updated>2019-01-20T19:09:48.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+</blockquote>
+<h2 id="关于本站">🏠 关于本站</h2>
+<p>这就是一个很可爱的地方，你问我它是什么，我也想问你它是什么。</p>
+<h2 id="博主是谁">👨‍💻 博主是谁</h2>
+<p>肥宅？健身？码农？音韵？书画？研究？我是你们，你们也是我。</p>
+<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
+<p>兴趣爱好这样式，太广泛了不算，太粗浅了不谈，太隐秘了不说。</p>
+<h2 id="联系我呀">📬 联系我呀</h2>
+<p>如果我记得留下联系方式的话。</p>
+<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1578554169546.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
