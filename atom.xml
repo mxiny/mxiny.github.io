@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://mxiny.github.io</id>
+    <id>http://mxiny.com</id>
     <title>Mxiny</title>
-    <updated>2020-03-08T00:31:08.893Z</updated>
+    <updated>2020-03-08T00:47:47.237Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://mxiny.github.io"/>
-    <link rel="self" href="https://mxiny.github.io/atom.xml"/>
+    <link rel="alternate" href="http://mxiny.com"/>
+    <link rel="self" href="http://mxiny.com/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://mxiny.github.io/images/avatar.png</logo>
-    <icon>https://mxiny.github.io/favicon.ico</icon>
+    <logo>http://mxiny.com/images/avatar.png</logo>
+    <icon>http://mxiny.com/favicon.ico</icon>
     <rights>All rights reserved 2020, Mxiny</rights>
     <entry>
         <title type="html"><![CDATA[读论文二]]></title>
-        <id>https://mxiny.github.io/post/du-lun-wen-er</id>
-        <link href="https://mxiny.github.io/post/du-lun-wen-er">
+        <id>http://mxiny.com/post/du-lun-wen-er</id>
+        <link href="http://mxiny.com/post/du-lun-wen-er">
         </link>
         <updated>2020-03-04T16:17:28.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
@@ -42,7 +42,7 @@
 <ul>
 <li>横向比较</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1583626929639.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://mxiny.com/post-images/1583626929639.png" alt="" loading="lazy"></figure>
 <p>a 为Dirichlet分布的参数，b为稀疏性系数。DVAE和DVAE Sparse的区别在于前者的b为1。</p>
 <ul>
 <li>
@@ -52,7 +52,7 @@
 </ul>
 </li>
 </ul>
-<figure data-type="image" tabindex="2"><img src="https://mxiny.github.io/post-images/1583626938494.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="http://mxiny.com/post-images/1583626938494.png" alt="" loading="lazy"></figure>
 <p>​				 这里引入batchnorm的原因是为了改善 Component Collapsing 问题。</p>
 <ul>
 <li>
@@ -84,7 +84,7 @@
 <ul>
 <li>除了 perplexity 和 NPMI（coherence）以外，还引入了 topic redundancy（越低越好）：</li>
 </ul>
-<figure data-type="image" tabindex="3"><img src="https://mxiny.github.io/post-images/1583626864052.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="http://mxiny.com/post-images/1583626864052.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>DVAE，coherence最高，但perplexity却非常高， topic redundancy一般。</p>
@@ -112,8 +112,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[读论文一]]></title>
-        <id>https://mxiny.github.io/post/lun-wen-yan-du</id>
-        <link href="https://mxiny.github.io/post/lun-wen-yan-du">
+        <id>http://mxiny.com/post/lun-wen-yan-du</id>
+        <link href="http://mxiny.com/post/lun-wen-yan-du">
         </link>
         <updated>2020-03-02T12:01:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
@@ -140,7 +140,7 @@
 <ul>
 <li>横向比较</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1583613447706.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://mxiny.com/post-images/1583613447706.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>VAE中，各个隐变量之间满足平均场假设。</p>
@@ -155,7 +155,7 @@
 <p>内部探究</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="2"><img src="https://mxiny.github.io/post-images/1583613458543.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="http://mxiny.com/post-images/1583613458543.png" alt="" loading="lazy"></figure>
 <ul>
 <li>
 <p>在图中节点数量有限的情况下，图结构的所有可能性是可数的，所有的可能性都是全连接图的子图。因此可以通过引入一个{0， 1}的<strong>指示变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></strong> 表示节点i和j之间是否有依赖关系。</p>
@@ -185,8 +185,8 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
 <p>最后利用一个<strong>precision-weighted fusion</strong>将两个分布联合起来得到最后的隐变量分布：</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="3"><img src="https://mxiny.github.io/post-images/1583613472508.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="https://mxiny.github.io/post-images/1583613487990.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="http://mxiny.com/post-images/1583613472508.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="http://mxiny.com/post-images/1583613487990.png" alt="" loading="lazy"></figure>
 <ul>
 <li>还有一个问题是<strong>如何确定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 的取值</strong>。因为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 是离散的，因此需要用一些技巧使得能够对它求导。这里作者用的是 Gumbel-Softmax estimator from Jang et al. (2017)：</li>
 </ul>
@@ -199,11 +199,11 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
 <ul>
 <li>Analysis on latant variables' structure and node dimensions</li>
 </ul>
-<figure data-type="image" tabindex="5"><img src="https://mxiny.github.io/post-images/1583613509585.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="http://mxiny.com/post-images/1583613509585.png" alt="" loading="lazy"></figure>
 <ul>
 <li>Quantitative Comparations</li>
 </ul>
-<figure data-type="image" tabindex="6"><img src="https://mxiny.github.io/post-images/1583613513997.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="http://mxiny.com/post-images/1583613513997.png" alt="" loading="lazy"></figure>
 <h2 id="conclusion">Conclusion</h2>
 <p>Authors presented a novel method for structure learning in latent variable models, which uses dependency gating variables, together with a modified objective and discrete differentiation techniques, to effectively transform discrete structure learning into a continuous optimization problem.</p>
 <p>In our experiments, <strong>the learned latent dependency structures improve the performance</strong> of latent variable models over comparable baselines with predefined dependency structures.</p>
@@ -213,8 +213,8 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
     </entry>
     <entry>
         <title type="html"><![CDATA[你好]]></title>
-        <id>https://mxiny.github.io/post/ni-hao</id>
-        <link href="https://mxiny.github.io/post/ni-hao">
+        <id>http://mxiny.com/post/ni-hao</id>
+        <link href="http://mxiny.com/post/ni-hao">
         </link>
         <updated>2020-01-07T23:55:30.000Z</updated>
         <content type="html"><![CDATA[<p>人生不如意之事十有八九，认清这一点才能够保持生命的乐观。在不如意之时也不必惶惶度日寻欢，只是抬头看，沉心思，径直走。</p>
@@ -222,8 +222,8 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
     </entry>
     <entry>
         <title type="html"><![CDATA[关于]]></title>
-        <id>https://mxiny.github.io/post/about</id>
-        <link href="https://mxiny.github.io/post/about">
+        <id>http://mxiny.com/post/about</id>
+        <link href="http://mxiny.com/post/about">
         </link>
         <updated>2019-01-20T19:09:48.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -237,7 +237,7 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
 <p>兴趣爱好这样式，太广泛了不算，太粗浅了不谈，太隐秘了不说。</p>
 <h2 id="联系我呀">📬 联系我呀</h2>
 <p>如果我记得留下联系方式的话。</p>
-<figure data-type="image" tabindex="1"><img src="https://mxiny.github.io/post-images/1578554169546.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://mxiny.com/post-images/1578554169546.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
