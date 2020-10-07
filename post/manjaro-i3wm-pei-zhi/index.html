@@ -1,0 +1,579 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mxiny</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://mxiny.github.io/favicon.ico?v=1602057942461">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://mxiny.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://mxiny.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://mxiny.github.io/images/avatar.png?v=1602057942461" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Mxiny</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85">1. 系统安装</a>
+<ul>
+<li><a href="#11-%E5%88%B6%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%98">1.1. 制作系统盘</a></li>
+<li><a href="#12-%E5%AE%89%E8%A3%85">1.2. 安装</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%9F%BA%E7%A1%80%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE">2.  基础软件配置</a>
+<ul>
+<li><a href="#21-%E6%9B%B4%E6%96%B0%E9%95%9C%E5%83%8F%E6%8E%92%E5%90%8D">2.1. 更新镜像排名</a></li>
+<li><a href="#22-%E8%AE%BE%E7%BD%AEarchlinuxcn%E6%BA%90">2.2. 设置Archlinuxcn源</a></li>
+<li><a href="#23-%E5%AF%BC%E5%85%A5gpg-%E5%B9%B6%E6%9B%B4%E6%96%B0">2.3. 导入GPG 并更新</a></li>
+<li><a href="#24-%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95">2.4. 中文输入法</a></li>
+<li><a href="#26-alacritty-%E7%BB%88%E7%AB%AF">2.6. Alacritty 终端</a></li>
+<li><a href="#27-%E7%B3%BB%E7%BB%9F%E4%B8%AA%E4%BA%BA%E8%AE%BE%E7%BD%AE">2.7. 系统个人设置</a>
+<ul>
+<li><a href="#271-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8">2.7.1. 开机启动</a></li>
+<li><a href="#271-%E6%9B%B4%E6%94%B9%E5%BF%AB%E6%8D%B7%E9%94%AE">2.7.1. 更改快捷键</a></li>
+</ul>
+</li>
+<li><a href="#28-%E5%A3%B0%E9%9F%B3%E6%98%BE%E7%A4%BA%E8%AE%BE%E7%BD%AE">2.8. 声音显示设置</a>
+<ul>
+<li><a href="#281-%E6%97%A0%E5%A3%B0%E9%9F%B3">2.8.1. 无声音</a></li>
+<li><a href="#282-%E6%98%BE%E7%A4%BA%E7%BC%A9%E6%94%BE">2.8.2. 显示缩放</a></li>
+</ul>
+</li>
+<li><a href="#29-%E9%BB%98%E8%AE%A4%E8%BD%AF%E4%BB%B6%E8%AE%BE%E7%BD%AE">2.9. 默认软件设置</a>
+<ul>
+<li><a href="#291-%E6%B5%8F%E8%A7%88%E5%99%A8">2.9.1. 浏览器</a></li>
+<li><a href="#292-%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F">2.9.2. 其他格式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3-%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6">3 常用的软件</a>
+<ul>
+<li><a href="#31-%E7%94%9F%E4%BA%A7%E5%8A%9B">3.1. 生产力：</a></li>
+<li><a href="#32-%E6%97%A5%E5%B8%B8">3.2. 日常：</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE">4.  常用快捷键</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://mxiny.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16"> manjaro i3wm 配置</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-10-06 / 5 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="1-系统安装">1. 系统安装</h2>
+<h3 id="11-制作系统盘">1.1. 制作系统盘</h3>
+<p>材料：</p>
+<ul>
+<li>
+<p>一个8G以上的U盘</p>
+</li>
+<li>
+<p><a href="https://rufus.ie/">rufus软件</a></p>
+</li>
+<li>
+<p><a href="https://manjaro.org/downloads/community/i3/">manjaro i3 ISO</a></p>
+</li>
+</ul>
+<p>一般流程即可。</p>
+<h3 id="12-安装">1.2. 安装</h3>
+<p>安装有2点要注意：</p>
+<ul>
+<li>
+<p>进U盘系统时，<strong>驱动选择no free</strong>，否则后面用CUDA以及其他使用有可能遇到麻烦。</p>
+</li>
+<li>
+<p><strong>保留swap分区</strong>，以便用于挂起和休眠。</p>
+</li>
+</ul>
+<h2 id="2-基础软件配置">2.  基础软件配置</h2>
+<h3 id="21-更新镜像排名">2.1. 更新镜像排名</h3>
+<pre><code class="language-bash">sudo pacman-mirrors -i -c China -m rank //更新镜像排名
+</code></pre>
+<p>之后自己选择几个镜像，推荐ustc和tuna的镜像源</p>
+<h3 id="22-设置archlinuxcn源">2.2. 设置Archlinuxcn源</h3>
+<pre><code class="language-bash">sudo vim /etc/pacman.conf
+</code></pre>
+<p>在文件末尾添加如下:</p>
+<pre><code class="language-bash">[archlinuxcn]
+SigLevel = Optional TrustedOnly
+#中科大源 
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch 
+#清华源 
+Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+</code></pre>
+<h3 id="23-导入gpg-并更新">2.3. 导入GPG 并更新</h3>
+<pre><code class="language-bash">sudo pacman -Syy //更新数据源
+sudo pacman -S archlinuxcn-keyring //安装导入GPG key
+sudo pacman -Syu //更新系统
+</code></pre>
+<h3 id="24-中文输入法">2.4. 中文输入法</h3>
+<p>先安装fcitx：</p>
+<pre><code class="language-bash">sudo pacman -S fcitx fcitx-im fcitx-configtool
+</code></pre>
+<p>安装完fcitx之后，创建.xprofile文件：</p>
+<pre><code class="language-bash">vim ~/.xprofile
+</code></pre>
+<p>在里面添加如下内容：</p>
+<pre><code class="language-bash">#fcitx
+export GTK_IM_MODULE=fcitx 
+export QT_IM_MODULE=fcitx 
+export XMODIFIERS=&quot;@im=fcitx&quot;
+</code></pre>
+<p>（可选）谷歌拼音：</p>
+<pre><code class="language-bash">sudo pacman -S fcitx-googlepinyin
+</code></pre>
+<h3 id="26-alacritty-终端">2.6. Alacritty 终端</h3>
+<p>Alacritty 是一个免费的开源，快速，跨平台的终端仿真器，它使用GPU进行渲染。</p>
+<pre><code class="language-bash">sudo pacman -S alacritty
+</code></pre>
+<p>美化：</p>
+<pre><code class="language-bash"># 创建配置文件夹 
+mkdir ~/.config/alacritty
+</code></pre>
+<p>将<a href="https://github.com/eendroroy/alacritty-theme">alacritty-theme</a>上喜爱的颜色搭配yml文件放在文件夹alacritty中。</p>
+<p>其他设置：</p>
+<pre><code class="language-bash">vi ~/.config/alacritty/alacritty.yml
+</code></pre>
+<p>后面加上：</p>
+<pre><code class="language-yml"># 字体 Noto San / Source Code Pro / Droid San Regular 都可
+family: Noto San
+# 背景不透明度
+background_opacity: 0.8
+</code></pre>
+<h3 id="27-系统个人设置">2.7. 系统个人设置</h3>
+<h4 id="271-开机启动">2.7.1. 开机启动</h4>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 末尾添加要启动的程序（fctix输入法为例）
+exec_always fcitx
+</code></pre>
+<h4 id="271-更改快捷键">2.7.1. 更改快捷键</h4>
+<p>更改终端：</p>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 修改terminal那一行为
+bindsym $mod+Return exec alacritty
+</code></pre>
+<p>自定义快捷键：</p>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 末尾添加（code举例）
+bindsym $mod+F12 exec code
+</code></pre>
+<h3 id="28-声音显示设置">2.8. 声音显示设置</h3>
+<h4 id="281-无声音">2.8.1. 无声音</h4>
+<p>用命令获取声卡的声卡ID和设备ID：</p>
+<pre><code class="language-bash">aplay -l
+</code></pre>
+<p>根据上述信息修改默认声卡：</p>
+<pre><code class="language-bash"># 新建用户声音配置文件
+vi ~/.asoundrc
+# 设置默认声卡
+defaults.pcm.card 1
+defaults.pcm.device 0
+defaults.ctl.card 1
+</code></pre>
+<p>重启i3即可。</p>
+<h4 id="282-显示缩放">2.8.2. 显示缩放</h4>
+<pre><code class="language-bash"># 打开配置文件
+vim ~/.Xresources
+# 编辑第一行，数值为放大倍数 %
+Xft.dpi: 125
+</code></pre>
+<h3 id="29-默认软件设置">2.9. 默认软件设置</h3>
+<h4 id="291-浏览器">2.9.1. 浏览器</h4>
+<p>对于i3wm的用户，除了编辑<code>~/.config/mimeapps.list</code>和之外<code>~/.i3/config</code>，还需要从更改<code>$BROWSER</code>为<code>~/.profile</code>，将其设置为<code>/usr/bin/chromium</code>，以防止从终端出现的浏览器会话打开错误的浏览器。</p>
+<p>都改好还不行的话，可以试试：</p>
+<pre><code class="language-bash">sudo xdg-mime default chromium.desktop x-scheme-handler/http
+sudo xdg-mime default chromium.desktop x-scheme-handler/https
+sudo xdg-mime default chromium.desktop text/html
+</code></pre>
+<h4 id="292-其他格式">2.9.2. 其他格式</h4>
+<pre><code class="language-bash"># jepg举例，随便找一个jpeg格式文件
+mimeopen -d photo.jpeg
+</code></pre>
+<p>其他格式也如此。</p>
+<h2 id="3-常用的软件">3 常用的软件</h2>
+<h3 id="31-生产力">3.1. 生产力：</h3>
+<p>安装：</p>
+<pre><code class="language-bash">sudo pacman -S package-name
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>软件 (name)</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vim</td>
+<td>文本编辑器</td>
+</tr>
+<tr>
+<td>code</td>
+<td>VS code</td>
+</tr>
+<tr>
+<td>chromium</td>
+<td>浏览器</td>
+</tr>
+<tr>
+<td>git</td>
+<td>版本管理</td>
+</tr>
+<tr>
+<td>pycharm</td>
+<td>python IDE</td>
+</tr>
+<tr>
+<td>anaconda</td>
+<td>python环境管理</td>
+</tr>
+<tr>
+<td>cuda cudnn</td>
+<td>Nvidia 科学计算库</td>
+</tr>
+<tr>
+<td>htop</td>
+<td>进程查看</td>
+</tr>
+<tr>
+<td>yay</td>
+<td>拥有更多包的管理器</td>
+</tr>
+<tr>
+<td>teamviewer</td>
+<td>远程桌面</td>
+</tr>
+<tr>
+<td>wps-office</td>
+<td>办公软件WPS</td>
+</tr>
+<tr>
+<td>xmind-2020</td>
+<td>Xmind思维导图</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-日常">3.2. 日常：</h3>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nitrogen</td>
+<td>可视化换壁纸的软件</td>
+</tr>
+<tr>
+<td>electron-netease-cloud-music</td>
+<td>第三方网易云音乐</td>
+</tr>
+<tr>
+<td>mailspring</td>
+<td>邮件</td>
+</tr>
+<tr>
+<td>redshift</td>
+<td>自动调节蓝光护眼</td>
+</tr>
+<tr>
+<td>baobab</td>
+<td>可视化磁盘存储量分析</td>
+</tr>
+<tr>
+<td>timeshift</td>
+<td>定期备份系统</td>
+</tr>
+<tr>
+<td>linux-headers</td>
+<td>配合virtualbox使用</td>
+</tr>
+<tr>
+<td>virtualbox</td>
+<td>虚拟机</td>
+</tr>
+<tr>
+<td>synology-drive-client</td>
+<td>群晖Drive客户端</td>
+</tr>
+<tr>
+<td>typora</td>
+<td>Markdown编辑器</td>
+</tr>
+<tr>
+<td>joplin</td>
+<td>开源笔记软件</td>
+</tr>
+<tr>
+<td>沙拉查词(chrome插件)</td>
+<td>可能最好的查词软件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-常用快捷键">4.  常用快捷键</h2>
+<p>常用的快捷键现总结如下：</p>
+<p>1：打开终端：alt+enter</p>
+<p>2：打开菜单：alt+d</p>
+<p>3：横向排列窗口：alt+h</p>
+<p>4：纵向排列窗口：alt+v</p>
+<p>5：将某个窗口全屏：alt+f</p>
+<p>6：模式选择</p>
+<p>​		alt+e默认（水平竖直）</p>
+<p>​		alt+s层叠</p>
+<p>​		alt+w标签形式显示（和浏览器的窗口很像）</p>
+<p>7：选择窗口是浮动的还是平铺式：alt+shift+space</p>
+<p>8：退出窗口：</p>
+<p>​		一般窗口ctrl+w</p>
+<p>​		某些应用程序：alt+shift+q</p>
+<p>9：重启i3：alt+shift+r</p>
+<p>10：关闭i3：alt+shift+e</p>
+<p>11：在两个窗口中移动：alt+方向/jkl;</p>
+<p>12：打开工作区：alt+num</p>
+<p>13：将当前窗口移动到某工作区：alt+shift+num</p>
+<hr>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://godliuyang.wang/2019/08/24/manjaro-i3wm-huan-jing-pei-zhi-pian/">Manjaro i3wm 高效率环境配置篇(持续更新)</a></p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/siyingcheng/p/11706436.html">我的Alacritty配置</a></p>
+</li>
+<li>
+<p><a href="https://segmentfault.com/a/1190000002918394">ArchLinux安装完没有声音之解决办法</a></p>
+</li>
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/default_applications">Default applications</a></p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/tongyan/archive/2012/10/04/2711550.html">i3基本快捷键操作</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://mxiny.github.io/post/du-lun-wen-er">
+                <h3 class="post-title">
+                  读论文二
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '49a42d81ba5f02692218',
+    clientSecret: '870ef420759adb248ccf93f59c70e1e4a58267b6',
+    repo: 'mxiny.github.io',
+    owner: 'mxiny',
+    admin: ['mxiny'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://mxiny.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

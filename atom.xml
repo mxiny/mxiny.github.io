@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mxiny.github.io</id>
     <title>Mxiny</title>
-    <updated>2020-03-08T01:27:40.930Z</updated>
+    <updated>2020-10-07T08:06:10.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mxiny.github.io"/>
     <link rel="self" href="https://mxiny.github.io/atom.xml"/>
@@ -10,6 +10,308 @@
     <logo>https://mxiny.github.io/images/avatar.png</logo>
     <icon>https://mxiny.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Mxiny</rights>
+    <entry>
+        <title type="html"><![CDATA[ manjaro i3wm 配置]]></title>
+        <id>https://mxiny.github.io/post/manjaro-i3wm-pei-zhi</id>
+        <link href="https://mxiny.github.io/post/manjaro-i3wm-pei-zhi">
+        </link>
+        <updated>2020-10-06T08:51:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-系统安装">1. 系统安装</h2>
+<h3 id="11-制作系统盘">1.1. 制作系统盘</h3>
+<p>材料：</p>
+<ul>
+<li>
+<p>一个8G以上的U盘</p>
+</li>
+<li>
+<p><a href="https://rufus.ie/">rufus软件</a></p>
+</li>
+<li>
+<p><a href="https://manjaro.org/downloads/community/i3/">manjaro i3 ISO</a></p>
+</li>
+</ul>
+<p>一般流程即可。</p>
+<h3 id="12-安装">1.2. 安装</h3>
+<p>安装有2点要注意：</p>
+<ul>
+<li>
+<p>进U盘系统时，<strong>驱动选择no free</strong>，否则后面用CUDA以及其他使用有可能遇到麻烦。</p>
+</li>
+<li>
+<p><strong>保留swap分区</strong>，以便用于挂起和休眠。</p>
+</li>
+</ul>
+<h2 id="2-基础软件配置">2.  基础软件配置</h2>
+<h3 id="21-更新镜像排名">2.1. 更新镜像排名</h3>
+<pre><code class="language-bash">sudo pacman-mirrors -i -c China -m rank //更新镜像排名
+</code></pre>
+<p>之后自己选择几个镜像，推荐ustc和tuna的镜像源</p>
+<h3 id="22-设置archlinuxcn源">2.2. 设置Archlinuxcn源</h3>
+<pre><code class="language-bash">sudo vim /etc/pacman.conf
+</code></pre>
+<p>在文件末尾添加如下:</p>
+<pre><code class="language-bash">[archlinuxcn]
+SigLevel = Optional TrustedOnly
+#中科大源 
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch 
+#清华源 
+Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+</code></pre>
+<h3 id="23-导入gpg-并更新">2.3. 导入GPG 并更新</h3>
+<pre><code class="language-bash">sudo pacman -Syy //更新数据源
+sudo pacman -S archlinuxcn-keyring //安装导入GPG key
+sudo pacman -Syu //更新系统
+</code></pre>
+<h3 id="24-中文输入法">2.4. 中文输入法</h3>
+<p>先安装fcitx：</p>
+<pre><code class="language-bash">sudo pacman -S fcitx fcitx-im fcitx-configtool
+</code></pre>
+<p>安装完fcitx之后，创建.xprofile文件：</p>
+<pre><code class="language-bash">vim ~/.xprofile
+</code></pre>
+<p>在里面添加如下内容：</p>
+<pre><code class="language-bash">#fcitx
+export GTK_IM_MODULE=fcitx 
+export QT_IM_MODULE=fcitx 
+export XMODIFIERS=&quot;@im=fcitx&quot;
+</code></pre>
+<p>（可选）谷歌拼音：</p>
+<pre><code class="language-bash">sudo pacman -S fcitx-googlepinyin
+</code></pre>
+<h3 id="26-alacritty-终端">2.6. Alacritty 终端</h3>
+<p>Alacritty 是一个免费的开源，快速，跨平台的终端仿真器，它使用GPU进行渲染。</p>
+<pre><code class="language-bash">sudo pacman -S alacritty
+</code></pre>
+<p>美化：</p>
+<pre><code class="language-bash"># 创建配置文件夹 
+mkdir ~/.config/alacritty
+</code></pre>
+<p>将<a href="https://github.com/eendroroy/alacritty-theme">alacritty-theme</a>上喜爱的颜色搭配yml文件放在文件夹alacritty中。</p>
+<p>其他设置：</p>
+<pre><code class="language-bash">vi ~/.config/alacritty/alacritty.yml
+</code></pre>
+<p>后面加上：</p>
+<pre><code class="language-yml"># 字体 Noto San / Source Code Pro / Droid San Regular 都可
+family: Noto San
+# 背景不透明度
+background_opacity: 0.8
+</code></pre>
+<h3 id="27-系统个人设置">2.7. 系统个人设置</h3>
+<h4 id="271-开机启动">2.7.1. 开机启动</h4>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 末尾添加要启动的程序（fctix输入法为例）
+exec_always fcitx
+</code></pre>
+<h4 id="271-更改快捷键">2.7.1. 更改快捷键</h4>
+<p>更改终端：</p>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 修改terminal那一行为
+bindsym $mod+Return exec alacritty
+</code></pre>
+<p>自定义快捷键：</p>
+<pre><code class="language-bash"># 打开用户配置文件
+vim ~/.i3/config
+# 末尾添加（code举例）
+bindsym $mod+F12 exec code
+</code></pre>
+<h3 id="28-声音显示设置">2.8. 声音显示设置</h3>
+<h4 id="281-无声音">2.8.1. 无声音</h4>
+<p>用命令获取声卡的声卡ID和设备ID：</p>
+<pre><code class="language-bash">aplay -l
+</code></pre>
+<p>根据上述信息修改默认声卡：</p>
+<pre><code class="language-bash"># 新建用户声音配置文件
+vi ~/.asoundrc
+# 设置默认声卡
+defaults.pcm.card 1
+defaults.pcm.device 0
+defaults.ctl.card 1
+</code></pre>
+<p>重启i3即可。</p>
+<h4 id="282-显示缩放">2.8.2. 显示缩放</h4>
+<pre><code class="language-bash"># 打开配置文件
+vim ~/.Xresources
+# 编辑第一行，数值为放大倍数 %
+Xft.dpi: 125
+</code></pre>
+<h3 id="29-默认软件设置">2.9. 默认软件设置</h3>
+<h4 id="291-浏览器">2.9.1. 浏览器</h4>
+<p>对于i3wm的用户，除了编辑<code>~/.config/mimeapps.list</code>和之外<code>~/.i3/config</code>，还需要从更改<code>$BROWSER</code>为<code>~/.profile</code>，将其设置为<code>/usr/bin/chromium</code>，以防止从终端出现的浏览器会话打开错误的浏览器。</p>
+<p>都改好还不行的话，可以试试：</p>
+<pre><code class="language-bash">sudo xdg-mime default chromium.desktop x-scheme-handler/http
+sudo xdg-mime default chromium.desktop x-scheme-handler/https
+sudo xdg-mime default chromium.desktop text/html
+</code></pre>
+<h4 id="292-其他格式">2.9.2. 其他格式</h4>
+<pre><code class="language-bash"># jepg举例，随便找一个jpeg格式文件
+mimeopen -d photo.jpeg
+</code></pre>
+<p>其他格式也如此。</p>
+<h2 id="3-常用的软件">3 常用的软件</h2>
+<h3 id="31-生产力">3.1. 生产力：</h3>
+<p>安装：</p>
+<pre><code class="language-bash">sudo pacman -S package-name
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>软件 (name)</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vim</td>
+<td>文本编辑器</td>
+</tr>
+<tr>
+<td>code</td>
+<td>VS code</td>
+</tr>
+<tr>
+<td>chromium</td>
+<td>浏览器</td>
+</tr>
+<tr>
+<td>git</td>
+<td>版本管理</td>
+</tr>
+<tr>
+<td>pycharm</td>
+<td>python IDE</td>
+</tr>
+<tr>
+<td>anaconda</td>
+<td>python环境管理</td>
+</tr>
+<tr>
+<td>cuda cudnn</td>
+<td>Nvidia 科学计算库</td>
+</tr>
+<tr>
+<td>htop</td>
+<td>进程查看</td>
+</tr>
+<tr>
+<td>yay</td>
+<td>拥有更多包的管理器</td>
+</tr>
+<tr>
+<td>teamviewer</td>
+<td>远程桌面</td>
+</tr>
+<tr>
+<td>wps-office</td>
+<td>办公软件WPS</td>
+</tr>
+<tr>
+<td>xmind-2020</td>
+<td>Xmind思维导图</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-日常">3.2. 日常：</h3>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nitrogen</td>
+<td>可视化换壁纸的软件</td>
+</tr>
+<tr>
+<td>electron-netease-cloud-music</td>
+<td>第三方网易云音乐</td>
+</tr>
+<tr>
+<td>mailspring</td>
+<td>邮件</td>
+</tr>
+<tr>
+<td>redshift</td>
+<td>自动调节蓝光护眼</td>
+</tr>
+<tr>
+<td>baobab</td>
+<td>可视化磁盘存储量分析</td>
+</tr>
+<tr>
+<td>timeshift</td>
+<td>定期备份系统</td>
+</tr>
+<tr>
+<td>linux-headers</td>
+<td>配合virtualbox使用</td>
+</tr>
+<tr>
+<td>virtualbox</td>
+<td>虚拟机</td>
+</tr>
+<tr>
+<td>synology-drive-client</td>
+<td>群晖Drive客户端</td>
+</tr>
+<tr>
+<td>typora</td>
+<td>Markdown编辑器</td>
+</tr>
+<tr>
+<td>joplin</td>
+<td>开源笔记软件</td>
+</tr>
+<tr>
+<td>沙拉查词(chrome插件)</td>
+<td>可能最好的查词软件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-常用快捷键">4.  常用快捷键</h2>
+<p>常用的快捷键现总结如下：</p>
+<p>1：打开终端：alt+enter</p>
+<p>2：打开菜单：alt+d</p>
+<p>3：横向排列窗口：alt+h</p>
+<p>4：纵向排列窗口：alt+v</p>
+<p>5：将某个窗口全屏：alt+f</p>
+<p>6：模式选择</p>
+<p>​		alt+e默认（水平竖直）</p>
+<p>​		alt+s层叠</p>
+<p>​		alt+w标签形式显示（和浏览器的窗口很像）</p>
+<p>7：选择窗口是浮动的还是平铺式：alt+shift+space</p>
+<p>8：退出窗口：</p>
+<p>​		一般窗口ctrl+w</p>
+<p>​		某些应用程序：alt+shift+q</p>
+<p>9：重启i3：alt+shift+r</p>
+<p>10：关闭i3：alt+shift+e</p>
+<p>11：在两个窗口中移动：alt+方向/jkl;</p>
+<p>12：打开工作区：alt+num</p>
+<p>13：将当前窗口移动到某工作区：alt+shift+num</p>
+<hr>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://godliuyang.wang/2019/08/24/manjaro-i3wm-huan-jing-pei-zhi-pian/">Manjaro i3wm 高效率环境配置篇(持续更新)</a></p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/siyingcheng/p/11706436.html">我的Alacritty配置</a></p>
+</li>
+<li>
+<p><a href="https://segmentfault.com/a/1190000002918394">ArchLinux安装完没有声音之解决办法</a></p>
+</li>
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/default_applications">Default applications</a></p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/tongyan/archive/2012/10/04/2711550.html">i3基本快捷键操作</a></p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[读论文二]]></title>
         <id>https://mxiny.github.io/post/du-lun-wen-er</id>
@@ -115,7 +417,7 @@
         <id>https://mxiny.github.io/post/lun-wen-yan-du</id>
         <link href="https://mxiny.github.io/post/lun-wen-yan-du">
         </link>
-        <updated>2020-03-02T12:01:12.000Z</updated>
+        <updated>2020-03-01T20:01:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
 <p>2019 ICLR Variational autoencoders with jointly optimized latent dependency structure</p>
 <h2 id="problem">Problem</h2>
