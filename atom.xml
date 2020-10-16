@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mxiny.github.io</id>
     <title>Mxiny</title>
-    <updated>2020-10-07T08:06:10.845Z</updated>
+    <updated>2020-10-16T07:25:14.652Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mxiny.github.io"/>
     <link rel="self" href="https://mxiny.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, Mxiny</rights>
     <entry>
         <title type="html"><![CDATA[ manjaro i3wm 配置]]></title>
-        <id>https://mxiny.github.io/post/manjaro-i3wm-pei-zhi</id>
-        <link href="https://mxiny.github.io/post/manjaro-i3wm-pei-zhi">
+        <id>https://mxiny.github.io/post/manjaro-i3wm-pei-zhi/</id>
+        <link href="https://mxiny.github.io/post/manjaro-i3wm-pei-zhi/">
         </link>
         <updated>2020-10-06T08:51:39.000Z</updated>
         <content type="html"><![CDATA[<h2 id="1-系统安装">1. 系统安装</h2>
@@ -314,8 +314,8 @@ mimeopen -d photo.jpeg
     </entry>
     <entry>
         <title type="html"><![CDATA[读论文二]]></title>
-        <id>https://mxiny.github.io/post/du-lun-wen-er</id>
-        <link href="https://mxiny.github.io/post/du-lun-wen-er">
+        <id>https://mxiny.github.io/post/du-lun-wen-er/</id>
+        <link href="https://mxiny.github.io/post/du-lun-wen-er/">
         </link>
         <updated>2020-03-04T16:17:28.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
@@ -414,8 +414,8 @@ mimeopen -d photo.jpeg
     </entry>
     <entry>
         <title type="html"><![CDATA[读论文一]]></title>
-        <id>https://mxiny.github.io/post/lun-wen-yan-du</id>
-        <link href="https://mxiny.github.io/post/lun-wen-yan-du">
+        <id>https://mxiny.github.io/post/lun-wen-yan-du/</id>
+        <link href="https://mxiny.github.io/post/lun-wen-yan-du/">
         </link>
         <updated>2020-03-01T20:01:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="title">Title</h2>
@@ -515,8 +515,8 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
     </entry>
     <entry>
         <title type="html"><![CDATA[你好]]></title>
-        <id>https://mxiny.github.io/post/ni-hao</id>
-        <link href="https://mxiny.github.io/post/ni-hao">
+        <id>https://mxiny.github.io/post/ni-hao/</id>
+        <link href="https://mxiny.github.io/post/ni-hao/">
         </link>
         <updated>2020-01-07T23:55:30.000Z</updated>
         <content type="html"><![CDATA[<p>人生不如意之事十有八九，认清这一点才能够保持生命的乐观。在不如意之时也不必惶惶度日寻欢，只是抬头看，沉心思，径直走。</p>
@@ -524,8 +524,8 @@ q_{\phi}(\mathbf{z} | \mathbf{x}, \mathbf{c})=\prod_{n=1}^{N} q_{\phi}\left(\mat
     </entry>
     <entry>
         <title type="html"><![CDATA[关于]]></title>
-        <id>https://mxiny.github.io/post/about</id>
-        <link href="https://mxiny.github.io/post/about">
+        <id>https://mxiny.github.io/post/about/</id>
+        <link href="https://mxiny.github.io/post/about/">
         </link>
         <updated>2019-01-20T19:09:48.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
